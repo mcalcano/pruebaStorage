@@ -8,6 +8,7 @@ $projectId = 'pruebasydemos-218913';
 // Authenticating with keyfile data.
 $storage = new StorageClient([
 	'keyFile' => json_decode(file_get_contents('pruebasydemos-5ea18d7c0e30.json'), true),
+	//'keyFilePath' => 'pruebasydemos-5ea18d7c0e30.json',
 	'projectId' => $projectId
 ]);
 
@@ -16,7 +17,7 @@ $bucket = $storage->bucket($bucketName);
 //$bucket = $storage->bucket('pruebatest');
 	
 
-function uploadFile () {	
+
 	// Upload a file to the bucket.
 	/*$bucket->upload(
 	   fopen('file.txt', 'r')
@@ -30,8 +31,16 @@ function uploadFile () {
 		'name' => $objectName
 	]);
 
-	printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
+	return('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
+
+
+
+function downloadFile() {
+	// Download and store an object from the bucket locally.
+	$object = $bucket->object('file.txt');
+	$object->downloadToFile('file_backup.txt');
 }
 
-echo 'hola';
+//echo 'hola';
+
 ?>
